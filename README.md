@@ -220,20 +220,4 @@ Email: [otienovictor502@gmail.com](mailto:otienovictor502@gmail.com)
 
 ---
 
-# What changed (so you understand the improvement)
 
-- Removed duplicate sections at the bottom
-- Fixed inconsistent endpoints (`/login` vs `/api/auth/login/`)
-- Removed unnecessary curl clutter
-- Made structure recruiter-friendly (they skim, not read line-by-line)
-- Made tone neutral and professional (not “demo-like”)
-- Highlighted architecture subtly (this matters more than features)
-
----
-
-If you want one final edge before submission, the highest ROI addition is:
-
-👉 a simple **architecture diagram (even PNG)**
-
-That alone can separate you from 80% of applicants.
-```
