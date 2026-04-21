@@ -11,11 +11,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-me")
 # IMPORTANT: disable debug in production automatically
 DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
 
-# ✅ FIXED ALLOWED HOSTS (Render-safe)
+
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    ".onrender.com",  # allows all Render subdomains
+    smartseason-api-438b.onrender.com
 ]
 
 INSTALLED_APPS = [
