@@ -1,64 +1,93 @@
 import axios from 'axios'
 
-const base = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || 'http://localhost:8008/api'
+// 🔥 Clean Vite-only env handling (no CRA fallback)
+const baseURL =
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:8000/api'
 
+// Axios instance
 const api = axios.create({
-  baseURL: base,
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 })
 
+// =========================
+// GLOBAL REQUEST TRACKER
+// =========================
 let pendingCount = 0
 const pendingListeners = new Set()
 
 function notifyPending() {
   pendingListeners.forEach((cb) => {
-    try { cb(pendingCount) } catch (e) {}
+    try {
+      cb(pendingCount)
+    } catch (e) {}
   })
 }
 
+// =========================
+// REQUEST INTERCEPTOR
+// =========================
 api.interceptors.request.use(
-  (cfg) => {
+  (config) => {
     pendingCount += 1
     notifyPending()
-    return cfg
-  },
-  (err) => {
-    pendingCount = Math.max(0, pendingCount - 1)
-    notifyPending()
-    return Promise.reject(err)
-  }
-)
 
-api.interceptors.response.use(
-  (resp) => {
-    pendingCount = Math.max(0, pendingCount - 1)
-    notifyPending()
-    return resp
-  },
-  (err) => {
-    pendingCount = Math.max(0, pendingCount - 1)
-    notifyPending()
-    if (err && err.response) {
-      const { status } = err.response
-      if (status === 401) {
-        try {
-          localStorage.removeItem('accessToken')
-          localStorage.removeItem('refreshToken')
-        } catch (e) {}
-        delete api.defaults.headers.common['Authorization']
-        window.location.href = '/login'
-      }
+    // Attach token automatically if exists
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return Promise.reject(err)
+
+    return config
+  },
+  (error) => {
+    pendingCount = Math.max(0, pendingCount - 1)
+    notifyPending()
+    return Promise.reject(error)
   }
 )
 
+// =========================
+// RESPONSE INTERCEPTOR
+// =========================
+api.interceptors.response.use(
+  (response) => {
+    pendingCount = Math.max(0, pendingCount - 1)
+    notifyPending()
+    return response
+  },
+  (error) => {
+    pendingCount = Math.max(0, pendingCount - 1)
+    notifyPending()
+
+    if (error?.response?.status === 401) {
+      // clear auth
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+
+      delete api.defaults.headers.common['Authorization']
+
+      // redirect to login
+      window.location.href = '/login'
+    }
+
+    return Promise.reject(error)
+  }
+)
+
+// =========================
+// SUBSCRIPTIONS (LOADING UI)
+// =========================
 export function subscribePending(cb) {
   pendingListeners.add(cb)
-  try { cb(pendingCount) } catch (e) {}
+  try {
+    cb(pendingCount)
+  } catch (e) {}
+
   return () => pendingListeners.delete(cb)
 }
 
@@ -66,20 +95,29 @@ export function getPendingCount() {
   return pendingCount
 }
 
+// =========================
+// AUTH HELPERS
+// =========================
 export function setAuthToken(token) {
   if (token) {
+    localStorage.setItem('accessToken', token)
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    try { localStorage.setItem('accessToken', token) } catch (e) {}
   } else {
+    localStorage.removeItem('accessToken')
     delete api.defaults.headers.common['Authorization']
-    try { localStorage.removeItem('accessToken') } catch (e) {}
   }
 }
 
-// initialize from storage
-try {
-  const t = localStorage.getItem('accessToken')
-  if (t) api.defaults.headers.common['Authorization'] = `Bearer ${t}`
-} catch (e) {}
+// =========================
+// INIT AUTH ON LOAD
+// =========================
+(() => {
+  try {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }
+  } catch (e) {}
+})()
 
 export default api
