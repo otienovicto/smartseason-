@@ -1,8 +1,3 @@
-"""Minimal Django settings for SmartSeason (placeholders).
-
-These are lightweight settings intended as a starting point
-for the assessment scaffold. Adjust for a real project.
-"""
 from pathlib import Path
 import os
 import dj_database_url
@@ -10,13 +5,17 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY: SECRET KEY from environment
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-me")
-DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
 
+# IMPORTANT: disable debug in production automatically
+DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
+
+# ✅ FIXED ALLOWED HOSTS (Render-safe)
 ALLOWED_HOSTS = [
-    ".onrender.com",
     "localhost",
     "127.0.0.1",
+    ".onrender.com",  # allows all Render subdomains
 ]
 
 INSTALLED_APPS = [
@@ -46,7 +45,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
-# Templates configuration (required for Django admin)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -63,18 +61,25 @@ TEMPLATES = [
     },
 ]
 
+# DATABASE (Render PostgreSQL compatible)
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+        default=os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600
     )
 }
 
 STATIC_URL = "/static/"
 
-# Use custom user model
-AUTH_USER_MODEL = 'users.CustomUser'
+# REQUIRED for production static files (VERY IMPORTANT on Render)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# REST framework + JWT configuration
+# Security for Render HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Use custom user model
+AUTH_USER_MODEL = "users.CustomUser"
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -90,6 +95,5 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# CORS settings (development)
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
