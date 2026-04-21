@@ -1,0 +1,272 @@
+:root{
+  --bg-1: #050b1a;
+  --bg-2: #0b1224;
+
+  --card-bg: rgba(255,255,255,0.96);
+  --card-border: rgba(255,255,255,0.18);
+
+  --accent-1: #00c2a8;
+  --accent-2: #3b82f6;
+
+  --text: #0f172a;
+  --muted: #64748b;
+
+  --input-bg: #f8fafc;
+  --shadow: 0 25px 70px rgba(0,0,0,0.45);
+}
+
+/* PAGE BACKGROUND */
+.ss-login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+
+  background:
+    radial-gradient(800px 400px at 10% 10%, rgba(59,130,246,0.08), transparent 60%),
+    radial-gradient(700px 350px at 90% 90%, rgba(0,194,168,0.07), transparent 55%),
+    linear-gradient(180deg,var(--bg-1),var(--bg-2));
+}
+
+/* MAIN CARD */
+.ss-card{
+  width:100%;
+  max-width:980px;
+  display:grid;
+  grid-template-columns: 1fr 1.1fr;
+
+  border-radius:20px;
+  overflow:hidden;
+
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+
+  box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
+
+  animation: floatIn .45s ease-out;
+}
+
+/* LEFT PANEL */
+.ss-side{
+  background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  color:white;
+
+  padding:48px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+}
+
+.ss-side .ss-side-illustration{
+  width:120px;
+  height:120px;
+  border-radius:18px;
+
+  background: rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:34px;
+  font-weight:700;
+
+  margin-bottom:10px;
+}
+
+.ss-side h2{
+  font-size:30px;
+  margin:0;
+  letter-spacing:-0.5px;
+}
+
+.ss-side p{
+  margin:0;
+  opacity:0.9;
+  line-height:1.5;
+}
+
+/* RIGHT PANEL */
+.ss-form-area{
+  padding:48px 52px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* BRAND */
+.ss-brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:24px;
+}
+
+.ss-logo{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+  font-weight:800;
+  font-size:16px;
+
+  background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.ss-title{
+  margin:0;
+  font-size:20px;
+  font-weight:700;
+}
+
+.ss-sub{
+  margin:2px 0 0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* FORM */
+.ss-form{
+  margin-top:10px;
+}
+
+/* INPUT FIELDS */
+.ss-field{
+  margin-bottom:18px;
+}
+
+.ss-field label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.ss-field input{
+  width:100%;
+  padding:14px 14px;
+
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+
+  background: var(--input-bg);
+  font-size:15px;
+
+  transition: all 0.2s ease;
+}
+
+.ss-field input:focus{
+  outline:none;
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 4px rgba(0,194,168,0.15);
+  background:white;
+}
+
+/* ACTION ROW */
+.ss-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:14px;
+  gap:12px;
+}
+
+/* REMEMBER */
+.ss-remember{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* BUTTON */
+.ss-btn{
+  flex:1;
+
+  padding:14px;
+  border:none;
+  border-radius:12px;
+
+  background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  color:white;
+
+  font-weight:700;
+  cursor:pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ss-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.ss-btn:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+/* ERROR */
+.ss-error{
+  margin-top:14px;
+  padding:12px;
+
+  border-radius:10px;
+
+  background:#fee2e2;
+  color:#991b1b;
+
+  font-size:13px;
+}
+
+/* FOOTER */
+.ss-footer{
+  margin-top:20px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.ss-footer a{
+  color:var(--accent-2);
+  text-decoration:none;
+}
+
+/* ANIMATION */
+@keyframes floatIn{
+  from{
+    transform: translateY(18px);
+    opacity:0;
+  }
+  to{
+    transform: translateY(0);
+    opacity:1;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 860px){
+  .ss-card{
+    grid-template-columns: 1fr;
+  }
+
+  .ss-side{
+    display:none;
+  }
+
+  .ss-form-area{
+    padding:32px;
+  }
+}

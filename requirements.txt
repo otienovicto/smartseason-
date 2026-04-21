@@ -1,0 +1,14 @@
+django-cors-headers
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+psycopg2-binary
+python-dotenv
+dj-database-url
+whitenoise
+gunicorn
+# Testing / dev
+pytest
+pytest-django
+coverage

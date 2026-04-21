@@ -1,0 +1,121 @@
+/* DESIGN TOKENS */
+:root {
+  /* COLORS */
+  --bg-main: #0b1220;
+  --bg-soft: #0f172a;
+  --surface: rgba(255,255,255,0.96);
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+
+  --border: #e2e8f0;
+
+  --accent-1: #06b6d4;
+  --accent-2: #3b82f6;
+
+  --danger: #ef4444;
+
+  /* TYPOGRAPHY */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+
+  /* SPACING + SHADOW */
+  --radius: 14px;
+  --shadow: 0 20px 60px rgba(0,0,0,0.25);
+
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: var(--text-primary);
+  background: var(--bg-main);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GLOBAL RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg-main), var(--bg-soft));
+  color: var(--text-primary);
+}
+
+/* ROOT CONTAINER */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TYPOGRAPHY */
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* LINKS */
+a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* CODE */
+code {
+  font-family: var(--font-mono);
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* SCROLLBAR (modern subtle UI) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100,116,139,0.4);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100,116,139,0.6);
+}
+
+/* RESPONSIVE TYPOGRAPHY */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}

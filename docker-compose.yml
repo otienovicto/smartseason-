@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  backend:
+    image: python:3.11-slim
+    working_dir: /code
+    volumes:
+      - ./backend:/code
+    command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+  frontend:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: bash -lc "npm install && npm run dev -- --host"
+    ports:
+      - "3000:3000"

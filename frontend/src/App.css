@@ -1,0 +1,195 @@
+/* COUNTER (modern badge style) */
+.counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  color: white;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.counter:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+.counter:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+/* HERO (cleaned + optional) */
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* REMOVE heavy 3D transforms (they look like demo UI) */
+.hero .base {
+  width: 140px;
+  opacity: 0.9;
+}
+
+.hero .framework,
+.hero .vite {
+  display: none; /* hide unnecessary demo visuals */
+}
+
+/* CENTER SECTION */
+#center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* NEXT STEPS SECTION */
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+/* CARDS INSIDE NEXT STEPS */
+#next-steps > div {
+  flex: 1;
+  padding: 28px;
+  transition: background 0.2s ease;
+}
+
+#next-steps > div:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* ICON */
+#next-steps .icon {
+  margin-bottom: 12px;
+  width: 22px;
+  height: 22px;
+}
+
+/* DOCS BORDER */
+#docs {
+  border-right: 1px solid var(--border);
+}
+
+/* LINKS LIST */
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* LINK BUTTON */
+#next-steps ul a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+#next-steps ul a:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* ICON INSIDE BUTTON */
+#next-steps .button-icon {
+  height: 16px;
+  width: 16px;
+}
+
+/* SPACER */
+#spacer {
+  height: 60px;
+  border-top: 1px solid var(--border);
+}
+
+/* TICKS (minimal clean version) */
+.ticks {
+  position: relative;
+  width: 100%;
+}
+
+.ticks::before,
+.ticks::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  border: 5px solid transparent;
+}
+
+.ticks::before {
+  left: 0;
+  border-left-color: var(--border);
+}
+
+.ticks::after {
+  right: 0;
+  border-right-color: var(--border);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+
+  #center {
+    padding: 24px 16px;
+  }
+
+  #next-steps {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #docs {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #next-steps ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #next-steps ul li {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  #next-steps ul a {
+    justify-content: center;
+    width: 100%;
+  }
+
+  #spacer {
+    height: 40px;
+  }
+}
