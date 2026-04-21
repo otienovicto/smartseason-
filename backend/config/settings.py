@@ -13,7 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "change-me")
 DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "smartseason-api-438b.onrender.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
