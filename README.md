@@ -42,7 +42,7 @@ The backend exposes a REST API secured with JWT authentication, while the fronte
   https://smartseason-api-438b.onrender.com
 
 - Frontend:  
-  *(Insert Vercel link here)*
+  https://smartseason-khaki.vercel.app
 
 ---
 
