@@ -13,7 +13,6 @@ DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
 
 
 ALLOWED_HOSTS = [
-    "smartseason-api-438b.onrender.com",
     ".onrender.com",
     "localhost",
     "127.0.0.1",
